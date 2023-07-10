@@ -3,10 +3,12 @@ export class CreateVolDto {
   operatingAirlineCode: string;
   departureCity: string;
   arrivalCity: string;
-  departureDate: Date;
+  departureAirportCode: string;
+  arrivalAirportCode: string;
+  departureDate: string;
   duration: number;
-  aircraftRegistration: string;
-  aircraftType: string;
+  aircraftId: string;
   passengers: number;
+  pilotId: string;
   refreshToken?: string;
 }
