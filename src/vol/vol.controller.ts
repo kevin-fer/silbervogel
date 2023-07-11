@@ -19,11 +19,12 @@ import { EventPattern, MessagePattern } from '@nestjs/microservices';
 export class VolController {
   constructor(private readonly volService: VolService) {}
 
-  @MessagePattern({ cmd: 'pilot' })
-  getPilot(name: string): string {
-    console.log(name);
-    return `Hello ${name}`;
+
+  @EventPattern('pilot')
+  async pilot(data: string) {
+    console.log(data);
   }
+  
 
   @Post()
   create(@Body() createVolDto: CreateVolDto) {
