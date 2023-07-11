@@ -12,10 +12,18 @@ import { VolService } from './vol.service';
 import { CreateVolDto } from './dto/create-vol.dto';
 import { UpdateVolDto } from './dto/update-vol.dto';
 import axios from 'axios';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 
 @Controller('vol')
 export class VolController {
   constructor(private readonly volService: VolService) {}
+
+  @MessagePattern({ cmd: 'pilot' })
+  getPilot(name: string): string {
+    console.log(name);
+    return `Hello ${name}`;
+  }
 
   @Post()
   create(@Body() createVolDto: CreateVolDto) {

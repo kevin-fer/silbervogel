@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateVolDto } from './dto/create-vol.dto';
 import { UpdateVolDto } from './dto/update-vol.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Vol, VolDocument } from './schemas/vol.schemas';
+import { ClientProxy } from '@nestjs/microservices';
 
 /**
  * Vol service
@@ -12,7 +13,10 @@ import { Vol, VolDocument } from './schemas/vol.schemas';
 
 @Injectable()
 export class VolService {
-  constructor(@InjectModel(Vol.name) private volModel: Model<VolDocument>) {}
+  constructor(
+    @InjectModel(Vol.name) private volModel: Model<VolDocument>,
+    @Inject('FLIGHT_TOKEN_SERVICE') private client: ClientProxy,
+  ) {}
 
   async create(createVolDto: CreateVolDto): Promise<VolDocument> {
     const createdUser = new this.volModel(createVolDto);
